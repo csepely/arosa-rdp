@@ -1,0 +1,26 @@
+---
+- name: Copy chocolatey package to temporary directory
+  tags: thinstuff
+  ansible.windows.win_copy:
+    src: thinstuff-xp-vs-server.1.0.918.1.nupkg
+    dest: 'c:\nupkgs\'
+
+- name: Install ThinStuff XP/VS Server
+  tags: thinstuff
+  become: yes
+  chocolatey.chocolatey.win_chocolatey:
+    name: thinstuff-xp-vs-server
+    source: 'c:\nupkgs\'
+    state: present
+  register: thinstuff_out
+
+- name: Debug
+  tags: thinstuff
+  ansible.builtin.debug:
+    var: thinstuff_out
+  when: thinstuff_out.rc < 0
+
+- name: Reboot Windows
+  tags: thinstuff
+  ansible.windows.win_reboot:
+  when: thinstuff_out.changed

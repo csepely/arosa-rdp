@@ -1,0 +1,17 @@
+---
+- name: Install apps
+  tags: apps
+  become: yes
+  chocolatey.chocolatey.win_chocolatey:
+    name:
+      - adobereader
+      - totalcommander
+    state: present
+
+- name: Install apps with params
+  tags: apps
+  become: yes
+  chocolatey.chocolatey.win_chocolatey:
+    name: thunderbird
+    state: present
+    package_params: "l=hu-HU"

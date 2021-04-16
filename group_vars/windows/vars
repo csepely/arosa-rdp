@@ -1,0 +1,6 @@
+---
+win_users_list: "{{ vault_win_users_list }}"
+server_ip: "{{ vault_server_ip }}"
+server_user: "{{ vault_server_user }}"
+server_pass: "{{ vault_server_pass }}"
+server_share: "{{ vault_server_share }}"

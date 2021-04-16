@@ -1,0 +1,21 @@
+---
+- name: Enable SMB1 windows feature
+  tags: smb1
+  become: yes
+  ansible.windows.win_optional_feature:
+    name:
+      - SMB1Protocol
+      - SMB1Protocol-Client
+    state: present
+  register: smb_client
+
+- name: Print smb_client
+  tags: debug
+  ansible.builtin.debug:
+    var: smb_client
+  when: print_facts | default(false)
+
+- name: Reboot, when required
+  tags: smb1
+  ansible.windows.win_reboot:
+  when: smb_client.reboot_required

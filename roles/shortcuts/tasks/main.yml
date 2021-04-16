@@ -1,0 +1,13 @@
+---
+- name: Arosa IQtato desktop shortcut
+  community.windows.win_shortcut:
+    src: ''
+    dest: '%Public%\Desktop\Arosa_IQtato.lnk'
+- name: ZHK IQtato desktop shortcut
+  community.windows.win_shortcut:
+    src:
+    dest: '%Public%\Desktop\ZHK_IQtato.lnk'
+- name: SzinvaComp desktop shortcut
+  community.windows.win_shortcut:
+    src: 
+    dest: '%Public%\Desktop\SzinvaComp.lnk'

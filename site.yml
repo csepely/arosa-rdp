@@ -1,0 +1,18 @@
+---
+- name: Setting up Windows host RDP/Szinva/IQtato...
+  hosts: windows
+  roles:
+    - role: common
+      when: ansible_facts['os_family'] == "Windows"
+    - role: szinva_users
+      when: ansible_facts['os_family'] == "Windows"
+    - role: smb1
+      when: ansible_facts['os_family'] == "Windows"
+    - role: szinva_share
+      when: ansible_facts['os_family'] == "Windows"
+    - role: rdp
+      when: ansible_facts['os_family'] == "Windows"
+    - role: apps
+      when: ansible_facts['os_family'] == "Windows"
+    - role: thinstuff
+      when: ansible_facts['os_family'] == "Windows"

@@ -1,0 +1,21 @@
+---
+- name: Create Windows users
+  tags: users
+  no_log: yes
+  ansible.windows.win_user:
+    name: "{{ item.name }}"
+    password: "{{ item.password }}"
+    password_never_expires: yes
+    user_cannot_change_password: yes
+    state: present
+    groups:
+      - "Asztal távoli felhasználói"
+      - "Felhasználók"
+  loop: "{{ win_users_list }}"
+
+- name: Create user profiles
+  tags: users
+  community.windows.win_user_profile:
+    username: "{{ item }}"
+    state: present
+  loop: "{{ win_users_list | map(attribute='name') | list }}"

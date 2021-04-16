@@ -1,0 +1,11 @@
+---
+- name: Disable Automatic Restart on System Failure
+  tags: autoreboot
+  become: yes
+  ansible.windows.win_command: wmic recoveros set AutoReboot = False
+  register: wmic_autoreboot
+- name: Print wmic_autoreboot failure
+  tags: autoreboot
+  ansible.builtin.debug:
+    var: wmic_autoreboot
+  when: wmic_autoreboot.rc != 0

@@ -1,0 +1,11 @@
+---
+# encrypt with: ansible-vault encrypt vault
+#vault_ansible_user: user
+#vault_ansible_password: password
+#vault_server_ip: 192.168.0.1
+#vault_server_user: user
+#vault_server_pass: pass
+#vault_server_share: share-name
+#vault_win_users_list:
+#  - { name: 'user1', password: 'password1' }
+#  - { name: 'user2', password: 'password2' }

@@ -1,0 +1,30 @@
+---
+- name: Add credentails to users...
+  tags: shares
+  become: yes
+  no_log: yes
+  community.windows.win_credential:
+    name: "{{ server_ip }}"
+    type: domain_password
+    username: "{{ server_user }}"
+    secret: "{{ server_pass }}"
+    state: present
+  vars:
+    ansible_become_user: "{{ item.name }}"
+    ansible_become_password: "{{ item.password }}"
+  loop: "{{ win_users_list }}"
+
+- name: Create network drive
+  tags: shares
+  become: yes
+  no_log: yes
+  community.windows.win_mapped_drive:
+    letter: S
+    path: \\{{ server_ip }}\{{ server_share }}
+    username: "{{ server_user }}"
+    password: "{{ server_pass }}"
+    state: present
+  vars:
+    ansible_become_user: "{{ item.name }}"
+    ansible_become_password: "{{ item.password }}"
+  loop: "{{ win_users_list }}"
