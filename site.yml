@@ -16,3 +16,5 @@
       when: ansible_facts['os_family'] == "Windows"
     - role: thinstuff
       when: ansible_facts['os_family'] == "Windows"
+    - role: shortcuts
+      when: ansible_facts['os_family'] == "Windows"

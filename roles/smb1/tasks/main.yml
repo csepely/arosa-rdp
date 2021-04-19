@@ -3,19 +3,26 @@
   tags: smb1
   become: yes
   ansible.windows.win_optional_feature:
-    name:
-      - SMB1Protocol
-      - SMB1Protocol-Client
-    state: present
+    name: "{{ item.pkg }}"
+    state: "{{ item.state }}"
   register: smb_client
+  loop:
+    - pkg: SMB1Protocol
+      state: present
+    - pkg: SMB1Protocol-Client
+      state: present
+    - pkg: SMB1Protocol-Server
+      state: absent
+    - pkg: SMB1Protocol-Deprecation
+      state: absent
 
 - name: Print smb_client
   tags: debug
   ansible.builtin.debug:
-    var: smb_client
+    var: smb_client.results
   when: print_facts | default(false)
 
 - name: Reboot, when required
   tags: smb1
   ansible.windows.win_reboot:
-  when: smb_client.reboot_required
+  when: True in smb_client.results | map(attribute='reboot_required')

@@ -1,13 +1,24 @@
 ---
-- name: Arosa IQtato desktop shortcut
+- name: Creating desktop shortcuts
+  tags: shortcuts
+  become: yes
   community.windows.win_shortcut:
-    src: ''
-    dest: '%Public%\Desktop\Arosa_IQtato.lnk'
-- name: ZHK IQtato desktop shortcut
-  community.windows.win_shortcut:
-    src:
-    dest: '%Public%\Desktop\ZHK_IQtato.lnk'
-- name: SzinvaComp desktop shortcut
-  community.windows.win_shortcut:
-    src: 
-    dest: '%Public%\Desktop\SzinvaComp.lnk'
+    src: "{{ item.src }}"
+    directory: "{{ item.directory }}"
+    dest: "{{ item.dest }}"
+  loop:
+    - src: '\\172.21.1.14\megoszt\IQTATO.SQL\BIN\iqtato.exe'
+      directory: '\\172.21.1.14\megoszt\IQTATO.SQL\BIN'
+      dest: '%Public%\Desktop\Arosa_IQtato.lnk'
+
+    - src: '\\192.168.0.121\megoszt\IQTATO.SQL\BIN\iqtato_zhk.exe'
+      directory: '\\192.168.0.121\megoszt\IQTATO.SQL\BIN'
+      dest: '%Public%\Desktop\ZHK_IQtato.lnk'
+
+    - src: 'S:\szinva\Indito.exe'
+      directory: 'S:\szinva\'
+      dest: '%Public%\Desktop\SzinvaComp.lnk'
+
+    - src: 'logoff'
+      directory: '%Public%\Desktop\'
+      dest: '%Public%\Desktop\kilépés.lnk'
