@@ -9,3 +9,6 @@
   ansible.builtin.debug:
     var: wmic_autoreboot
   when: wmic_autoreboot.rc != 0
+- name: Turn off hibernate
+  become: yes
+  ansible.windows.win_command: powercfg -h off
